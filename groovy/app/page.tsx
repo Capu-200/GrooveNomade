@@ -11,26 +11,23 @@ const features = [
     description:
       'Recommandations selon vos goûts et vos vibes.',
     icon: SparklesIcon,
-    color: '[#8A27F3]',
   },
   {
     name: 'Expérience locale',
     description:
       'Activités culturelles autour des festivals.',
     icon: GlobeEuropeAfricaIcon,
-    color: '[#009280]',
   },
   {
     name: 'Organisation simplifiée',
     description:
       'Transport, hébergement, billets… Tout est centralisé.',
     icon: ArrowPathIcon,
-    color: '[#FF2D94]',
   },
 ]
 
 const navigation = [
-  { name: 'Festivals', href: '#' },
+  { name: 'Festivals', href: '/festivals' },
   { name: 'Destinations', href: '#' },
   { name: 'À propos', href: '#' },
 ]
@@ -43,7 +40,7 @@ export default function Home() {
       <header className="absolute inset-x-0 top-0 z-50">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
+            <a href="/" className="-m-1.5 p-1.5">
               <svg width="40" height="40" viewBox="0 0 113 124" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2.83559 92.2684C-1.49188 84.8824 0.987592 75.3867 8.37364 71.0592L88.9742 23.8355C96.3603 19.508 105.856 21.9875 110.183 29.3736C114.511 36.7596 112.031 46.2553 104.645 50.5828L24.0448 97.8065C16.6587 102.134 7.16306 99.6544 2.83559 92.2684Z" fill="url(#paint0_linear_7_43)" fillOpacity="0.4"/>
               <path d="M2.72822 29.5576C7.03037 22.1568 16.5175 19.6448 23.9183 23.947L104.68 70.8943C112.081 75.1965 114.593 84.6836 110.291 92.0844C105.989 99.4853 96.5015 101.997 89.1007 97.6951L8.33886 50.7477C0.938036 46.4456 -1.57393 36.9584 2.72822 29.5576Z" fill="url(#paint1_linear_7_43)" fillOpacity="0.4"/>
@@ -84,8 +81,8 @@ export default function Home() {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm/6 font-semibold text-gray-900">
-              Log in <span aria-hidden="true">&rarr;</span>
+            <a href="/login" className="text-sm/6 font-semibold text-gray-900">
+              Se connecter <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </nav>
@@ -140,10 +137,10 @@ export default function Home() {
                 </div>
                 <div className="py-6">
                   <a
-                    href="#"
+                    href="/login"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                   >
-                    Log in
+                    Se connecter
                   </a>
                 </div>
               </div>
@@ -170,7 +167,7 @@ export default function Home() {
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               Recommandation personnalisée par IA. {' '}
-              <a href="#" className="font-semibold text-[#8A27F3]">
+              <a href="#" className="font-semibold text-purple-500">
                 <span aria-hidden="true" className="absolute inset-0" />
                 Lire plus <span aria-hidden="true">&rarr;</span>
               </a>
@@ -185,8 +182,8 @@ export default function Home() {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
-                href="#"
-                className="rounded-md bg-[#8A27F3] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                href="/login"
+                className="rounded-md bg-purple-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-purple-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
               >
                 Créer mon profil musical
               </a>
@@ -212,7 +209,7 @@ export default function Home() {
 
       <div className="mx-auto max-w-7xl px-6 pb-14 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base/7 font-semibold text-indigo-600">Pourquoi Groove Nomad ?</h2>
+          <h2 className="text-base/7 font-semibold text-purple-500">Pourquoi Groove Nomad ?</h2>
           <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl lg:text-balance">
             Bien plus qu’un voyage, une aventure musicale sur-mesure
           </p>
@@ -226,7 +223,7 @@ export default function Home() {
             {features.map((feature) => (
               <div key={feature.name} className="relative pl-16">
                 <dt className="text-base/7 font-semibold text-gray-900">
-                  <div className={`absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-${feature.color}`}>
+                  <div className={`absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-blue-500`}>
                     <feature.icon aria-hidden="true" className="size-6 text-white" />
                   </div>
                   {feature.name}
