@@ -4,7 +4,7 @@ const festivals = [
     {
       id: 1,
       name: 'Garorock',
-      href: '#',
+      href: '/festival/id',
       imageSrc: 'https://bullesdeculture.com/bdc-content/uploads/2024/06/garorock-2024-affiche.jpg',
       imageAlt: "Affiche du Lineup du festival Garorock de juin 2024.",
       jour: '3j',
