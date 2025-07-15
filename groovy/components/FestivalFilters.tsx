@@ -29,9 +29,9 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
   const countries = [...new Set(festivals.map(f => f.country).filter(Boolean))];
   const maxPrice = Math.max(
     ...festivals.flatMap(f => [
-      parseFloat(f.price_1_day?.replace(/[^0-9]/g, '') || '0'),
-      parseFloat(f.price_2_days?.replace(/[^0-9]/g, '') || '0'),
-      parseFloat(f.price_3_days?.replace(/[^0-9]/g, '') || '0')
+      f.price_1_day || 0,
+      f.price_2_days || 0,
+      f.price_3_days || 0
     ])
   );
 
@@ -50,9 +50,9 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
       
       // Filtre par prix
       const festivalPrices = [
-        parseFloat(festival.price_1_day?.replace(/[^0-9]/g, '') || '0'),
-        parseFloat(festival.price_2_days?.replace(/[^0-9]/g, '') || '0'),
-        parseFloat(festival.price_3_days?.replace(/[^0-9]/g, '') || '0')
+        festival.price_1_day || 0,
+        festival.price_2_days || 0,
+        festival.price_3_days || 0
       ];
       const minFestivalPrice = Math.min(...festivalPrices.filter(p => p > 0));
       const maxFestivalPrice = Math.max(...festivalPrices);
@@ -110,11 +110,11 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
           <select
             value={filters.genre}
             onChange={(e) => applyFilters({ ...filters, genre: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            className="w-full px-3 py-2 border text-gray-700 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
           >
             <option value="">Tous les genres</option>
             {genres.map(genre => (
-              <option key={genre} value={genre}>{genre}</option>
+              <option key={genre} value={genre} className="text-gray-700">{genre}</option>
             ))}
           </select>
         </div>
@@ -214,7 +214,7 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
               max={maxPrice}
               value={filters.minPrice || ''}
               onChange={(e) => applyFilters({ ...filters, minPrice: parseInt(e.target.value) || 0 })}
-              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="px-3 py-2 border text-gray-700 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
             />
             <input
               type="number"
@@ -223,7 +223,7 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
               max={maxPrice}
               value={filters.maxPrice || ''}
               onChange={(e) => applyFilters({ ...filters, maxPrice: parseInt(e.target.value) || 0 })}
-              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="px-3 py-2 border text-gray-700 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
             />
           </div>
         </div>

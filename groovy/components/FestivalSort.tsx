@@ -26,7 +26,7 @@ export default function FestivalSort({ onSortChange, currentSort }: FestivalSort
         <select
           value={currentSort}
           onChange={(e) => onSortChange(e.target.value)}
-          className="appearance-none bg-white border border-gray-300 rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="appearance-none text-gray-700 bg-white border border-gray-300 rounded-md px-3 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
         >
           {sortOptions.map(option => (
             <option key={option.value} value={option.value}>

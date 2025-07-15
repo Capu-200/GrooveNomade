@@ -14,9 +14,9 @@ export interface Festival {
   date_fin?: string;
   location?: string;
   imageUrl?: string;
-  price_1_day?: string;
-  price_2_days?: string;
-  price_3_days?: string;
+  price_1_day?: number;
+  price_2_days?: number;
+  price_3_days?: number;
   nb_jours?: number;
   genre?: string;    
 }
@@ -42,9 +42,9 @@ export async function getFestivals(): Promise<Festival[]> {
       date_debut: record.get('Date_debut') as string || '',
       date_fin: record.get('Date_fin') as string || '',
       imageUrl: record.get('Image') as string || '',
-      price_1_day: record.get('Price_1_day') as string || '',
-      price_2_days: record.get('Price_2_days') as string || '',
-      price_3_days: record.get('Price_3_days') as string || '',
+      price_1_day: record.get('Prix_1_jour') as number || 0,
+      price_2_days: record.get('Prix_2_jours') as number || 0,
+      price_3_days: record.get('Prix_3_jours') as number || 0,
       nb_jours: record.get('Nb_jours') as number || 0,
       genre: record.get('Genre') as string || ''
     }));
@@ -67,9 +67,9 @@ export async function getFestivalById(id: string): Promise<Festival | null> {
       date_fin: record.get('Date_fin') as string || '',
       nb_jours : record.get('Nb_jours') as number || 0,
       imageUrl: record.get('Image') as string || '',
-      price_1_day: record.get('Price_1_day') as string || '',
-      price_2_days: record.get('Price_2_days') as string || '',
-      price_3_days: record.get('Price_3_days') as string || '',
+      price_1_day: record.get('Prix_1_jour') as number || 0,
+      price_2_days: record.get('Prix_2_jours') as number || 0,
+      price_3_days: record.get('Prix_3_jours') as number || 0,
       genre: record.get('Genre') as string || ''
     };
   } catch (error) {

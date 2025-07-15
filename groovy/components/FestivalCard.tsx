@@ -48,13 +48,13 @@ export default function FestivalCard({ festival }: FestivalCardProps) {
     return parts.join(', ');
   };
 
-  const getPriceDisplay = () => {
+/*   const getPriceDisplay = () => {
     const prices = [];
-    if (festival.price_1_day) prices.push(`1j: ${festival.price_1_day}`);
-    if (festival.price_2_days) prices.push(`2j: ${festival.price_2_days}`);
-    if (festival.price_3_days) prices.push(`3j: ${festival.price_3_days}`);
+    if (festival.price_1_day) prices.push(`1j: ${festival.price_1_day}€`);
+    if (festival.price_2_days) prices.push(`2j: ${festival.price_2_days}€`);
+    if (festival.price_3_days) prices.push(`3j: ${festival.price_3_days}€`);
     return prices;
-  };
+  }; */
 
   return (
     <div className="group relative bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -102,7 +102,7 @@ export default function FestivalCard({ festival }: FestivalCardProps) {
           </span>
         )}
         
-        {getPriceDisplay().length > 0 && (
+  {/*       {getPriceDisplay().length > 0 && (
           <div className="mb-3">
             {getPriceDisplay().map((price, index) => (
               <div key={index} className="text-sm text-gray-700">
@@ -110,7 +110,7 @@ export default function FestivalCard({ festival }: FestivalCardProps) {
               </div>
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

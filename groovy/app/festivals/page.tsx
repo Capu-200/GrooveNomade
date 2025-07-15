@@ -70,17 +70,9 @@ export default function FestivalsPage() {
       case 'name_desc':
         return sorted.sort((a, b) => b.name.localeCompare(a.name));
       case 'price_asc':
-        return sorted.sort((a, b) => {
-          const aPrice = parseFloat(a.price_1_day?.replace(/[^0-9]/g, '') || '0');
-          const bPrice = parseFloat(b.price_1_day?.replace(/[^0-9]/g, '') || '0');
-          return aPrice - bPrice;
-        });
+        return sorted.sort((a, b) => (a.price_1_day || 0) - (b.price_1_day || 0));
       case 'price_desc':
-        return sorted.sort((a, b) => {
-          const aPrice = parseFloat(a.price_1_day?.replace(/[^0-9]/g, '') || '0');
-          const bPrice = parseFloat(b.price_1_day?.replace(/[^0-9]/g, '') || '0');
-          return bPrice - aPrice;
-        });
+        return sorted.sort((a, b) => (b.price_1_day || 0) - (a.price_1_day || 0));
       case 'days_asc':
         return sorted.sort((a, b) => (a.nb_jours || 0) - (b.nb_jours || 0));
       case 'days_desc':
