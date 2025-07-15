@@ -6,36 +6,36 @@ const festivals = [
       name: 'Garorock',
       href: '#',
       imageSrc: 'https://bullesdeculture.com/bdc-content/uploads/2024/06/garorock-2024-affiche.jpg',
-      imageAlt: "Affiche du Lineup du festival Garorock de juin 2024",
-      price: '$40',
-      pass: 'Pass un jour',
+      imageAlt: "Affiche du Lineup du festival Garorock de juin 2024.",
+      jour: '3j',
+      pass: 'À Marmande',
     },
     {
       id: 2,
-      name: 'Basic Tee',
+      name: 'Château Perché',
       href: '#',
-      imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-02.jpg',
-      imageAlt: "Front of men's Basic Tee in white.",
-      price: '$35',
-      pass: 'Aspen White',
+      imageSrc: 'https://chateauperchefestival.com/wp-content/uploads/2025/06/AfficheFinale.png',
+      imageAlt: "Affiche de la programmation du festival Château Perché de 2025.",
+      jour: '3j',
+      pass: 'À Bouville',
     },
     {
       id: 3,
-      name: 'Basic Tee',
+      name: 'Les Plages Électroniques',
       href: '#',
-      imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-03.jpg',
+      imageSrc: 'https://d1k4bi32qf3nf2.cloudfront.net/product/2025/05/festival_les_plages_electroniques_billets_cannes_affiche_1747305936.jpg',
       imageAlt: "Front of men's Basic Tee in dark gray.",
-      price: '$35',
-      pass: 'Charcoal',
+      jour: '3j',
+      pass: 'À Cannes',
     },
     {
       id: 4,
-      name: 'Artwork Tee',
+      name: 'Lollapalooza Paris',
       href: '#',
-      imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-04.jpg',
+      imageSrc: 'https://festivawl.com/wp-content/uploads/2024/12/Lollapalooza-Paris-2025-Lineup.webp',
       imageAlt: "Front of men's Artwork Tee in peach with white and brown dots forming an isometric cube.",
-      price: '$35',
-      pass: 'Iso Dots',
+      jour: '3j',
+      pass: 'À Paris',
     },
   ]
   
@@ -60,7 +60,7 @@ const festivals = [
                     </h3>
                     <p className="mt-1 text-sm text-gray-500">{festival.pass}</p>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">{festival.price}</p>
+                  <p className="text-sm font-medium text-gray-900">{festival.jour}</p>
                 </div>
               </div>
             ))}

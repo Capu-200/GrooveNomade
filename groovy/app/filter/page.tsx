@@ -22,16 +22,18 @@ const sortOptions = [
   { name: 'Les plus populaires', href: '#', current: true },
   { name: 'Les mieux notés', href: '#', current: false },
   { name: 'Les nouveaux', href: '#', current: false },
-  { name: 'Prix: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
+  { name: 'Prix: Moins cher au Plus cher', href: '#', current: false },
+  { name: 'Prix: Plus cher au Moins cher', href: '#', current: false },
 ]
-const subCategories = [
-  { name: 'Totes', href: '#' },
-  { name: 'Backpacks', href: '#' },
-  { name: 'Travel Bags', href: '#' },
-  { name: 'Hip Bags', href: '#' },
-  { name: 'Laptop Sleeves', href: '#' },
-]
+
+// const subCategories = [
+//   { name: 'Totes', href: '#' },
+//   { name: 'Backpacks', href: '#' },
+//   { name: 'Travel Bags', href: '#' },
+//   { name: 'Hip Bags', href: '#' },
+//   { name: 'Laptop Sleeves', href: '#' },
+// ]
+
 const filters = [
   {
     id: 'ville',
@@ -39,7 +41,7 @@ const filters = [
     options: [
       { value: 'paris', label: 'Paris', checked: false },
       { value: 'marmande', label: 'Marmande', checked: false },
-      { value: 'londres', label: 'Londres', checked: true },
+      { value: 'londres', label: 'Londres', checked: false },
       { value: 'barcelone', label: 'Barcelone', checked: false },
       { value: 'berlin', label: 'Berlin', checked: false },
       { value: 'miami', label: 'Miami', checked: false },
@@ -49,23 +51,23 @@ const filters = [
     id: 'pays',
     name: 'Pays',
     options: [
-      { value: 'france', label: 'France', checked: false },
+      { value: 'france', label: 'France', checked: true },
       { value: 'angleterre', label: 'Angleterre', checked: false },
-      { value: 'espagne', label: 'Espagne', checked: true },
+      { value: 'espagne', label: 'Espagne', checked: false },
       { value: 'allemagne', label: 'Allemagne', checked: false },
       { value: 'etats-unis', label: 'États-Unis', checked: false },
     ],
   },
   {
-    id: 'size',
-    name: 'Size',
+    id: 'genre',
+    name: 'Genre',
     options: [
-      { value: '2l', label: '2L', checked: false },
-      { value: '6l', label: '6L', checked: false },
-      { value: '12l', label: '12L', checked: false },
-      { value: '18l', label: '18L', checked: false },
-      { value: '20l', label: '20L', checked: false },
-      { value: '40l', label: '40L', checked: true },
+      { value: 'techno', label: 'Techno', checked: false },
+      { value: 'country', label: 'Country', checked: false },
+      { value: 'rock', label: 'Rock', checked: false },
+      { value: 'jazz', label: 'Jazz', checked: false },
+      { value: 'indie', label: 'Indie', checked: false },
+      { value: 'hip-hop', label: 'Hip-Hop', checked: false },
     ],
   },
 ]
@@ -108,7 +110,7 @@ export default function Filter() {
 
               {/* Filters */}
               <form className="mt-4 border-t border-gray-200">
-                <h3 className="sr-only">Categories</h3>
+                {/* <h3 className="sr-only">Categories</h3>
                 <ul role="list" className="px-2 py-3 font-medium text-gray-900">
                   {subCategories.map((category) => (
                     <li key={category.name}>
@@ -117,7 +119,7 @@ export default function Filter() {
                       </a>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
 
                 {filters.map((section) => (
                   <Disclosure key={section.id} as="div" className="border-t border-gray-200 px-4 py-6">
@@ -243,14 +245,14 @@ export default function Filter() {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               <form className="hidden lg:block">
-                <h3 className="sr-only">Categories</h3>
+                {/* <h3 className="sr-only">Categories</h3>
                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                   {subCategories.map((category) => (
                     <li key={category.name}>
                       <a href={category.href}>{category.name}</a>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
 
                 {filters.map((section) => (
                   <Disclosure key={section.id} as="div" className="border-b border-gray-200 py-6">
