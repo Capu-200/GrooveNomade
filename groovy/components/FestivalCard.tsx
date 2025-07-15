@@ -50,9 +50,9 @@ export default function FestivalCard({ festival }: FestivalCardProps) {
 
   const getPriceDisplay = () => {
     const prices = [];
-    if (festival.price_1_day) prices.push(`1 jour: ${festival.price_1_day}`);
-    if (festival.price_2_days) prices.push(`2 jours: ${festival.price_2_days}`);
-    if (festival.price_3_days) prices.push(`3 jours: ${festival.price_3_days}`);
+    if (festival.price_1_day) prices.push(`1j: ${festival.price_1_day}`);
+    if (festival.price_2_days) prices.push(`2j: ${festival.price_2_days}`);
+    if (festival.price_3_days) prices.push(`3j: ${festival.price_3_days}`);
     return prices;
   };
 
@@ -79,7 +79,7 @@ export default function FestivalCard({ festival }: FestivalCardProps) {
           </h3>
           {festival.nb_jours && festival.nb_jours > 0 && (
             <span className="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded-full">
-              {festival.nb_jours} jour{festival.nb_jours > 1 ? 's' : ''}
+              {festival.nb_jours}J
             </span>
           )}
         </div>
