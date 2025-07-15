@@ -176,7 +176,7 @@ export default function Festival() {
                                         <input
                                         defaultValue={jour.name}
                                         defaultChecked={jour === product.pass[2]}
-                                        name="size"
+                                        name="pass"
                                         type="radio"
                                         disabled={!jour.inStock}
                                         className="absolute inset-0 appearance-none focus:outline-none disabled:cursor-not-allowed"
@@ -205,7 +205,7 @@ export default function Festival() {
                                         <input
                                         defaultValue={transport.name}
                                         defaultChecked={transport === product.pass[2]}
-                                        name="size"
+                                        name="transport"
                                         type="radio"
                                         className="absolute inset-0 appearance-none focus:outline-none disabled:cursor-not-allowed"
                                         />
@@ -233,7 +233,7 @@ export default function Festival() {
                                         <input
                                         defaultValue={maison.name}
                                         defaultChecked={maison === product.pass[2]}
-                                        name="size"
+                                        name="maison"
                                         type="radio"
                                         className="absolute inset-0 appearance-none focus:outline-none disabled:cursor-not-allowed"
                                         />
@@ -261,7 +261,7 @@ export default function Festival() {
                                         <input
                                         defaultValue={nb.name}
                                         defaultChecked={nb === product.voyageur[2]}
-                                        name="size"
+                                        name="nb_voyageurs"
                                         type="radio"
                                         disabled={!nb.inStock}
                                         className="absolute inset-0 appearance-none focus:outline-none disabled:cursor-not-allowed"
