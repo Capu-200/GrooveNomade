@@ -6,14 +6,13 @@ export default function Newsletter() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
           <div className="max-w-xl lg:max-w-lg">
-            <h2 className="text-4xl font-semibold tracking-tight text-gray-900">Subscribe to our newsletter</h2>
+            <h2 className="text-4xl font-semibold tracking-tight text-gray-900">Abonnez-vous à notre newsletter</h2>
             <p className="mt-4 text-lg text-gray-600">
-              Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt
-              dolore.
+                Chaque mois, reçois une sélection de festivals incontournables, des idées d’escapades musicales et nos dernières offres de voyages personnalisés.
             </p>
             <div className="mt-6 flex max-w-md gap-x-4">
               <label htmlFor="email-address" className="sr-only">
-                Email address
+                Adresse Email
               </label>
               <input
                 id="email-address"
@@ -28,7 +27,7 @@ export default function Newsletter() {
                 type="submit"
                 className="flex-none rounded-md bg-purple-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-purple-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
               >
-                Subscribe
+                S'abonner
               </button>
             </div>
           </div>
@@ -39,16 +38,16 @@ export default function Newsletter() {
               </div>
               <dt className="mt-4 text-base font-semibold text-gray-900">Weekly articles</dt>
               <dd className="mt-2 text-base/7 text-gray-600">
-                Non laboris consequat cupidatat laborum magna. Eiusmod non irure cupidatat duis commodo amet.
+                Reçois en avant-première les nouveaux festivals & bons plans que nous proposons !
               </dd>
             </div>
             <div className="flex flex-col items-start">
               <div className="rounded-md bg-gray-100 p-2 ring-1 ring-white">
                 <HandRaisedIcon aria-hidden="true" className="size-6 text-gray-600" />
               </div>
-              <dt className="mt-4 text-base font-semibold text-gray-900">No spam</dt>
+              <dt className="mt-4 text-base font-semibold text-gray-900">Pas de spam</dt>
               <dd className="mt-2 text-base/7 text-gray-600">
-                Officia excepteur ullamco ut sint duis proident non adipisicing. Voluptate incididunt anim.
+                En t'abonnant à notre newsletter, nous t'assurons qu'il y aura zéro spam, que des good vibes !
               </dd>
             </div>
           </dl>
