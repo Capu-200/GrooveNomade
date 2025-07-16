@@ -26,13 +26,7 @@ export default function FestivalsPage() {
     try {
       setLoading(true)
       console.log('🚀 Début du chargement des festivals...');
-      console.log('Variables env:', {
-        apiKey: process.env.NEXT_PUBLIC_AIRTABLE_API_KEY ? '✅ Présente' : '❌ Manquante',
-        baseId: process.env.NEXT_PUBLIC_AIRTABLE_BASE_ID ? '✅ Présente' : '❌ Manquante'
-      });
-      
       const data = await getFestivals()
-      console.log('📊 Données reçues:', data.length, 'festivals');
       setFestivals(data)
       setFilteredFestivals(data)
       setError(null)

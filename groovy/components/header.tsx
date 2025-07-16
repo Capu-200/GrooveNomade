@@ -1,17 +1,31 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon, SparklesIcon, ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon, GlobeEuropeAfricaIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon, SparklesIcon, ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon, GlobeEuropeAfricaIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
     { name: 'Festivals', href: '/festivals' },
-    { name: 'Destinations', href: '#' },
-    { name: 'À propos', href: '#' },
+    { name: 'Mes Devis', href: '/mes-devis' },
+    { name: 'À propos', href: '/a-propos' },
 ]
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [userName, setUserName] = useState('')
+
+    useEffect(() => {
+        // Vérifier si l'utilisateur est connecté
+        const token = localStorage.getItem('authToken')
+        const name = localStorage.getItem('userName')
+        const email = localStorage.getItem('userEmail')
+        
+        if (token) {
+            setIsLoggedIn(true)
+            setUserName(name || email || 'Utilisateur')
+        }
+    }, [])
 
     return(
         <header className="absolute inset-x-0 top-0 z-50">
@@ -58,9 +72,20 @@ export default function Header() {
                 ))}
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <a href="/login" className="text-sm/6 font-semibold text-gray-900">
-                    Se connecter <span aria-hidden="true">&rarr;</span>
-                    </a>
+                    {isLoggedIn ? (
+                        <div className="flex items-center space-x-4">
+                            <div className="flex items-center space-x-2">
+                                <UserCircleIcon className="h-5 w-5 text-purple-600" />
+                                <span className="text-sm/6 font-semibold text-gray-900">
+                                    {userName}
+                                </span>
+                            </div>
+                        </div>
+                    ) : (
+                        <a href="/login" className="text-sm/6 font-semibold text-gray-900">
+                            Se connecter <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    )}
                 </div>
             </nav>
             <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
@@ -113,12 +138,29 @@ export default function Header() {
                         ))}
                         </div>
                         <div className="py-6">
-                        <a
-                            href="/login"
-                            className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                        >
-                            Se connecter
-                        </a>
+                        {isLoggedIn ? (
+                            <>
+                                <a
+                                    href="/mes-devis"
+                                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                                >
+                                    Mes Devis
+                                </a>
+                                <div className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900">
+                                    <div className="flex items-center space-x-2">
+                                        <UserCircleIcon className="h-5 w-5 text-purple-600" />
+                                        <span>{userName}</span>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <a
+                                href="/login"
+                                className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                            >
+                                Se connecter
+                            </a>
+                        )}
                         </div>
                         </div>
                     </div>
