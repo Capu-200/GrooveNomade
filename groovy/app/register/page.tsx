@@ -5,9 +5,11 @@ import { useRouter } from 'next/navigation'
 import Header from '@/components/header'
 import { Footer } from '@/components/footer'
 
-export default function LoginPage() {
+export default function RegisterPage() {
+  const [nomComplet, setNomComplet] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
@@ -17,11 +19,30 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
 
+    // Validation des champs
+    if (!nomComplet || !email || !password || !confirmPassword) {
+      setError('Tous les champs sont requis')
+      setLoading(false)
+      return
+    }
+
+    if (password !== confirmPassword) {
+      setError('Les mots de passe ne correspondent pas')
+      setLoading(false)
+      return
+    }
+
+    if (password.length < 6) {
+      setError('Le mot de passe doit contenir au moins 6 caractères')
+      setLoading(false)
+      return
+    }
+
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ nomComplet, email, password })
       })
 
       if (response.ok) {
@@ -29,6 +50,7 @@ export default function LoginPage() {
         // Stocker le token dans localStorage
         localStorage.setItem('authToken', data.token)
         localStorage.setItem('userEmail', email)
+        localStorage.setItem('userName', nomComplet)
         
         // Vérifier s'il y a un devis en attente
         const pendingDevis = localStorage.getItem('pendingDevis')
@@ -40,10 +62,10 @@ export default function LoginPage() {
         }
       } else {
         const errorData = await response.json()
-        setError(errorData.message || 'Erreur de connexion')
+        setError(errorData.message || 'Erreur lors de l\'inscription')
       }
     } catch (err) {
-      setError('Erreur de connexion')
+      setError('Erreur lors de l\'inscription')
     } finally {
       setLoading(false)
     }
@@ -52,7 +74,8 @@ export default function LoginPage() {
   return (
     <div className="bg-white min-h-screen">
       <Header />
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-30 mb-25">
+      
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-25 mb-25">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col justify-center items-center">
           <svg width="40" height="40" viewBox="0 0 113 124" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2.83559 92.2684C-1.49188 84.8824 0.987592 75.3867 8.37364 71.0592L88.9742 23.8355C96.3603 19.508 105.856 21.9875 110.183 29.3736C114.511 36.7596 112.031 46.2553 104.645 50.5828L24.0448 97.8065C16.6587 102.134 7.16306 99.6544 2.83559 92.2684Z" fill="url(#paint0_linear_7_43)" fillOpacity="0.4"/>
@@ -75,7 +98,7 @@ export default function LoginPage() {
             </defs>
           </svg>
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Connectez-vous à votre compte
+            Créer votre compte
           </h2>
         </div>
 
@@ -87,6 +110,24 @@ export default function LoginPage() {
               </div>
             )}
             
+            <div>
+              <label htmlFor="nomComplet" className="block text-sm/6 font-medium text-gray-900">
+                Nom complet
+              </label>
+              <div className="mt-2">
+                <input
+                  id="nomComplet"
+                  name="nomComplet"
+                  type="text"
+                  required
+                  value={nomComplet}
+                  onChange={(e) => setNomComplet(e.target.value)}
+                  autoComplete="name"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                 Adresse mail
@@ -106,16 +147,9 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                  Mot de passe 
-                </label>
-                <div className="text-sm">
-                  <a href="#" className="font-semibold text-purple-500 hover:text-purple-600">
-                    Mot de passe oublié ?
-                  </a>
-                </div>
-              </div>
+              <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
+                Mot de passe
+              </label>
               <div className="mt-2">
                 <input
                   id="password"
@@ -124,7 +158,25 @@ export default function LoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
+                  autoComplete="new-password"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm/6 font-medium text-gray-900">
+                Confirmer le mot de passe
+              </label>
+              <div className="mt-2">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  autoComplete="new-password"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-sm/6"
                 />
               </div>
@@ -136,21 +188,21 @@ export default function LoginPage() {
                 disabled={loading}
                 className="flex w-full justify-center rounded-md bg-purple-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-purple-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600 disabled:opacity-50"
               >
-                {loading ? 'Connexion...' : 'Se connecter'}
+                {loading ? 'Création du compte...' : 'Créer mon compte'}
               </button>
             </div>
           </form>
 
           <p className="mt-10 text-center text-sm/6 text-gray-500">
-            Vous n'avez pas de compte ?{' '}
-            <a href="/register" className="font-semibold text-purple-500 hover:text-indigo-600">
-              Créez-en un !
+            Vous avez déjà un compte ?{' '}
+            <a href="/login" className="font-semibold text-purple-500 hover:text-indigo-600">
+              Connectez-vous !
             </a>
           </p>
         </div>
       </div>
+      
       <Footer />
     </div>
   )
-}
-  
+} 
