@@ -426,9 +426,9 @@ export default function FestivalDetail({ params }: FestivalDetailProps) {
                     placeholder="Nombre de jours"
                   />
                 </div>
-              </div>
+                        </div>
 
-                                      <button
+                        <button
                 type="button"
                 onClick={() => {
                   // Vérifier si l'utilisateur est connecté
@@ -453,9 +453,9 @@ export default function FestivalDetail({ params }: FestivalDetailProps) {
                   }
                 }}
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-purple-500 px-8 py-3 text-base font-semibold text-white hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:outline-hidden"
-              >
-                Demander un devis
-              </button>
+                        >
+                            Demander un devis
+                        </button>
                     </form>
                 </div>
 
@@ -538,7 +538,7 @@ export default function FestivalDetail({ params }: FestivalDetailProps) {
                     </div>
                 </div>
             </div>
-          </div>
+        </div>
         </div>
       </div>
       <Footer />

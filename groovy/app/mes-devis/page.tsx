@@ -19,6 +19,7 @@ interface Devis {
   nbVoyageurs: number;
   status: string;
   createdAt: string;
+  devisWordUrl?: string;
 }
 
 export default function MesDevisPage() {
@@ -262,6 +263,19 @@ export default function MesDevisPage() {
                   <div className="mt-4 p-3 bg-purple-50 rounded">
                     <p className="text-sm font-medium text-purple-800 mb-1">Suggestions d'activités IA:</p>
                     <p className="text-sm text-purple-700">{devis.activitesIA}</p>
+                  </div>
+                )}
+
+                {devis.devisWordUrl && (
+                  <div className="mt-4 flex items-center gap-2">
+                    <a
+                      href={devis.devisWordUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 font-medium text-sm transition"
+                    >
+                      📄 Télécharger le devis Word
+                    </a>
                   </div>
                 )}
 
