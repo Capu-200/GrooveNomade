@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon, SparklesIcon, ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon, GlobeEuropeAfricaIcon } from '@heroicons/react/24/outline'
 import {Footer} from "@/components/footer"
@@ -30,6 +31,24 @@ const features = [
 ]
 
 export default function Home() {
+  const router = useRouter()
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    // Vérifier si l'utilisateur est connecté
+    const token = localStorage.getItem('authToken')
+    if (token) {
+      setIsLoggedIn(true)
+    }
+  }, [])
+
+  const handleMesDevisClick = () => {
+    if (isLoggedIn) {
+      router.push('/mes-devis')
+    } else {
+      router.push('/login')
+    }
+  }
 
   return (
     <div className="bg-white h-fit">
@@ -72,9 +91,12 @@ export default function Home() {
               >
                 Créer mon profil musical
               </a>
-              <a href="#" className="text-sm/6 font-semibold text-gray-900">
-                En apprendre plus <span aria-hidden="true">→</span>
-              </a>
+              <button
+                onClick={() => router.push('/festivals')}
+                className="rounded-md bg-gray-100 px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+              >
+                {isLoggedIn ? 'En savoir plus' : 'Festivals'}
+              </button>
             </div>
           </div>
         </div>
@@ -120,10 +142,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+{/*       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">Les prochains festivals</h2>
         <Festivals></Festivals>
-      </div>
+      </div> */}
 
       <Newsletter></Newsletter>
       

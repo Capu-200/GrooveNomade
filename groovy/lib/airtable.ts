@@ -20,6 +20,22 @@ export interface Festival {
   nb_jours?: number;
   genre?: string;    
 }
+export interface Hebergement {
+  id: string;
+  name: string;
+  prix_nuit?: number;
+  type?: string;
+}
+
+export interface Transport {
+  id: string;
+  ville_depart?: string;
+  ville_arrivee?: string;
+  prix_aller_retour?: number;
+  duree_estimee?: number;
+  mode?: string;
+  compagnie?: string;    
+}
 
 export async function getFestivals(): Promise<Festival[]> {
   try {
@@ -54,12 +70,18 @@ export async function getFestivals(): Promise<Festival[]> {
   }
 }
 
-export async function getFestivalById(id: string): Promise<Festival | null> {
+export async function getFestivalById(festivalId: string): Promise<(Festival & { airtableId: string }) | null> {
   try {
-    const record = await base('Festivals').find(id);
-    
+    const records = await base('Festivals').select({
+      filterByFormula: `{FestivalID} = '${festivalId}'`
+    }).all();
+
+    if (records.length === 0) return null;
+    const record = records[0];
+
     return {
       id: record.get('FestivalID') as string || '',
+      airtableId: record.id,
       name: record.get('Nom') as string || '',
       city: record.get('Ville') as string || '',
       country: record.get('Pays') as string || '',
@@ -76,4 +98,35 @@ export async function getFestivalById(id: string): Promise<Festival | null> {
     console.error('Erreur lors de la récupération du festival:', error);
     return null;
   }
+} 
+
+export async function getHebergementsByFestivalId(festivalId: string) {
+  console.log('Recherche hebergements pour festivalId:', festivalId);
+  const records = await base('Hebergements').select({
+    filterByFormula: `{Festival} = '${festivalId}'`
+  }).all();
+  return records.map(record => ({
+    id: record.get('HebergementID') as string || '',
+    name: record.get('Nom') as string || '',
+    prix_nuit: record.get('Prix par nuit') as number || 0,
+    type: record.get('Type') as string || '',
+    // autres champs...
+  }));
+}
+
+export async function getTransportsByFestivalId(festivalId: string) {
+  console.log('Recherche transports pour festivalId:', festivalId);
+  const records = await base('Transports').select({
+    filterByFormula: `{Festival} = '${festivalId}'`
+  }).all();
+  return records.map(record => ({
+    id: record.get('TransportID') as string || '',
+    ville_depart: record.get('Ville_depart') as string || '',
+    ville_arrivee: record.get('Ville_arrivee') as string || '',
+    prix_aller_retour: record.get('Prix_A/R') as number || 0,
+    duree_estimee: record.get('Duree_estimee') as number || 0,
+    mode: record.get('Mode') as string || '',
+    compagnie: record.get('Compagnie') as string || '',
+    // autres champs...
+  }));
 } 
