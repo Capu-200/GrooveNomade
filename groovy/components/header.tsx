@@ -5,6 +5,7 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon, SparklesIcon, ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon, GlobeEuropeAfricaIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
+    { name: 'Assistant IA', href: '/chatbot' },
     { name: 'Festivals', href: '/festivals' },
     { name: 'Mes Devis', href: '/mes-devis' },
     { name: 'À propos', href: '/a-propos' },

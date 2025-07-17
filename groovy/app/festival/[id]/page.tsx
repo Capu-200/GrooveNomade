@@ -256,11 +256,11 @@ export default function FestivalDetail({ params }: FestivalDetailProps) {
             {/* Image gallery */}
             <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-8 lg:px-8">
           {festival.imageUrl ? (
-            <img
+                <img
               alt={festival.name}
               src={festival.imageUrl}
               className="row-span-2 aspect-3/4 size-full rounded-lg object-cover"
-            />
+                />
           ) : (
             <div className="row-span-2 aspect-3/4 size-full rounded-lg bg-gray-200 flex items-center justify-center">
               <span className="text-gray-400">Aucune image</span>
