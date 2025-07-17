@@ -19,6 +19,7 @@ interface Devis {
   nbVoyageurs: number;
   status: string;
   createdAt: string;
+  devisWordUrl?: string;
 }
 
 export default function MesDevisPage() {
@@ -30,7 +31,23 @@ export default function MesDevisPage() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const [showPendingMessage, setShowPendingMessage] = useState(false)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
+  
+  // États pour le modal de refus
+  const [showRefuseModal, setShowRefuseModal] = useState(false)
+  const [selectedDevisId, setSelectedDevisId] = useState<string | null>(null)
+  const [selectedMotif, setSelectedMotif] = useState('')
+  const [commentaires, setCommentaires] = useState('')
+  const [refuseLoading, setRefuseLoading] = useState(false)
+  
   const router = useRouter()
+
+  const motifsRefus = [
+    { value: 'trop_cher', label: 'Trop cher' },
+    { value: 'changement_avis', label: 'Changement d\'avis' },
+    { value: 'desistement', label: 'Désistement' },
+    { value: 'pas_bon_choix', label: 'Pas le bon choix' },
+    { value: 'autres', label: 'Autres' }
+  ]
 
   useEffect(() => {
     // Vérifier l'authentification
@@ -97,16 +114,16 @@ export default function MesDevisPage() {
         return 'bg-blue-100 text-blue-800'
       case 'En cours':
         return 'bg-yellow-100 text-yellow-800'
-      case 'Validé':
-        return 'bg-green-100 text-green-800'
       case 'Refusé':
         return 'bg-red-100 text-red-800'
+      case 'Accepté':
+        return 'bg-green-100 text-green-800'
       default:
         return 'bg-gray-100 text-gray-800'
     }
   }
 
-  const handleUpdateDevisStatus = async (devisId: string, newStatus: string) => {
+  const handleAcceptDevis = async (devisId: string) => {
     setActionLoading(devisId)
     
     try {
@@ -115,7 +132,7 @@ export default function MesDevisPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           devisId,
-          status: newStatus
+          status: 'Accepté'
         })
       })
 
@@ -124,7 +141,7 @@ export default function MesDevisPage() {
         setDevis(prevDevis => 
           prevDevis.map(devis => 
             devis.id === devisId 
-              ? { ...devis, status: newStatus }
+              ? { ...devis, status: 'Accepté' }
               : devis
           )
         )
@@ -135,6 +152,56 @@ export default function MesDevisPage() {
       alert('Erreur lors de la mise à jour du statut')
     } finally {
       setActionLoading(null)
+    }
+  }
+
+  const handleRefuseDevis = (devisId: string) => {
+    setSelectedDevisId(devisId)
+    setSelectedMotif('')
+    setCommentaires('')
+    setShowRefuseModal(true)
+  }
+
+  const handleSubmitRefuse = async () => {
+    if (!selectedMotif) {
+      alert('Veuillez sélectionner un motif de refus')
+      return
+    }
+
+    setRefuseLoading(true)
+    
+    try {
+      const response = await fetch('/api/devis/update-status', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          devisId: selectedDevisId,
+          status: 'Refusé',
+          motif: selectedMotif,
+          commentaires: commentaires
+        })
+      })
+
+      if (response.ok) {
+        // Mettre à jour le statut localement
+        setDevis(prevDevis => 
+          prevDevis.map(devis => 
+            devis.id === selectedDevisId 
+              ? { ...devis, status: 'Refusé' }
+              : devis
+          )
+        )
+        setShowRefuseModal(false)
+        setSelectedDevisId(null)
+        setSelectedMotif('')
+        setCommentaires('')
+      } else {
+        alert('Erreur lors de la mise à jour du statut')
+      }
+    } catch (error) {
+      alert('Erreur lors de la mise à jour du statut')
+    } finally {
+      setRefuseLoading(false)
     }
   }
 
@@ -161,7 +228,7 @@ export default function MesDevisPage() {
               Mes devis
             </h1>
             <p className="text-gray-600 mt-2">
-              Bonjour {userName || userEmail}, voici l'historique de vos demandes de devis
+              👋 Bonjour {userName || userEmail}, voici l'historique de vos demandes de devis
             </p>
           </div>
           <button
@@ -265,21 +332,34 @@ export default function MesDevisPage() {
                   </div>
                 )}
 
+                {devis.devisWordUrl && (
+                  <div className="mt-4 flex items-center gap-2">
+                    <a
+                      href={devis.devisWordUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 font-medium text-sm transition"
+                    >
+                      📄 Télécharger le devis Word
+                    </a>
+                  </div>
+                )}
+
                 {/* Boutons d'action pour les devis en cours */}
                 {devis.status === 'En cours' && (
                   <div className="mt-4 pt-4 border-t">
                     <div className="flex gap-3">
                       <button
-                        onClick={() => handleUpdateDevisStatus(devis.id, 'Validé')}
+                        onClick={() => handleAcceptDevis(devis.id)}
                         disabled={actionLoading === devis.id}
-                        className="flex-1 bg-emeraude-300 text-white px-4 py-2 rounded-md hover:bg-emeraude-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex-1 bg-emeraude-400 text-white px-4 py-2 rounded-md hover:bg-emeraude-700 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {actionLoading === devis.id ? 'Traitement...' : '✅ Accepter le devis'}
                       </button>
                       <button
-                        onClick={() => handleUpdateDevisStatus(devis.id, 'Refusé')}
+                        onClick={() => handleRefuseDevis(devis.id)}
                         disabled={actionLoading === devis.id}
-                        className="flex-1 bg-neutral-300 text-white px-4 py-2 rounded-md hover:bg-stone-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex-1 bg-neutral-400 text-white px-4 py-2 rounded-md hover:bg-stone-700 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {actionLoading === devis.id ? 'Traitement...' : '❌ Refuser le devis'}
                       </button>
@@ -288,7 +368,7 @@ export default function MesDevisPage() {
                 )}
 
                 {/* Message de confirmation pour les devis acceptés */}
-                {devis.status === 'Validé' && (
+                {devis.status === 'Accepté' && (
                   <div className="mt-4 p-3 bg-green-50 rounded border border-green-200">
                     <p className="text-sm text-green-800">
                       ✅ Votre devis a été accepté ! Vous recevrez bientôt les détails de votre voyage.
@@ -309,6 +389,70 @@ export default function MesDevisPage() {
           </div>
         )}
       </div>
+      
+      {/* Modal de refus */}
+      {showRefuseModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+            <h3 className="text-lg font-semibold mb-4">Refuser le devis</h3>
+            
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Motif du refus *
+              </label>
+              <select
+                value={selectedMotif}
+                onChange={(e) => setSelectedMotif(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+                required
+              >
+                <option value="">Sélectionnez un motif</option>
+                {motifsRefus.map((motif) => (
+                  <option key={motif.value} value={motif.value}>
+                    {motif.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Commentaires (optionnel)
+              </label>
+              <textarea
+                value={commentaires}
+                onChange={(e) => setCommentaires(e.target.value)}
+                rows={3}
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+                placeholder="Précisez votre motif de refus..."
+              />
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowRefuseModal(false)
+                  setSelectedDevisId(null)
+                  setSelectedMotif('')
+                  setCommentaires('')
+                }}
+                className="flex-1 bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                onClick={handleSubmitRefuse}
+                disabled={refuseLoading || !selectedMotif}
+                className="flex-1 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-700 disabled:opacity-65 disabled:cursor-not-allowed"
+              >
+                {refuseLoading ? 'Traitement...' : 'Confirmer le refus'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       
       <Footer />
     </div>
