@@ -71,9 +71,9 @@ export default function Home() {
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               Recommandation personnalisée par IA. {' '}
-              <a href="#" className="font-semibold text-purple-500">
+              <a href="/chatbot" className="font-semibold text-purple-500">
                 <span aria-hidden="true" className="absolute inset-0" />
-                Lire plus <span aria-hidden="true">&rarr;</span>
+                Tester <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
           </div>
