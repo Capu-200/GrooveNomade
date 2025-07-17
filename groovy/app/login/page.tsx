@@ -26,17 +26,25 @@ export default function LoginPage() {
 
       if (response.ok) {
         const data = await response.json()
-        // Stocker le token dans localStorage
+        // Stocker le token et les infos utilisateur dans localStorage
         localStorage.setItem('authToken', data.token)
         localStorage.setItem('userEmail', email)
+        localStorage.setItem('userName', data.user.name)
         
-        // Vérifier s'il y a un devis en attente
-        const pendingDevis = localStorage.getItem('pendingDevis')
-        if (pendingDevis) {
-          localStorage.removeItem('pendingDevis')
-          router.push('/mes-devis?pending=true')
+        // Vérifier s'il y a une URL de retour
+        const returnUrl = localStorage.getItem('returnUrl')
+        if (returnUrl) {
+          localStorage.removeItem('returnUrl')
+          router.push(returnUrl)
         } else {
-          router.push('/mes-devis')
+          // Vérifier s'il y a un devis en attente
+          const pendingDevis = localStorage.getItem('pendingDevis')
+          if (pendingDevis) {
+            localStorage.removeItem('pendingDevis')
+            router.push('/mes-devis?pending=true')
+          } else {
+            router.push('/mes-devis')
+          }
         }
       } else {
         const errorData = await response.json()

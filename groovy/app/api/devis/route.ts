@@ -17,13 +17,29 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // Récupérer les devis de l'utilisateur
-    const records = await base('Demandes').select({
-      filterByFormula: `{Email} = '${email}'`,
+    // 1. D'abord récupérer l'utilisateur par email dans la table Utilisateurs
+    const userRecords = await base('Utilisateurs').select({
+      filterByFormula: `{Email} = '${email}'`
+    }).all();
+
+    if (userRecords.length === 0) {
+      return NextResponse.json(
+        { message: 'Utilisateur non trouvé' },
+        { status: 404 }
+      );
+    }
+
+    const userRecord = userRecords[0];
+    const userId = userRecord.get('Nom complet') as string || ''; // ID de l'utilisateur dans Airtable
+
+    // 2. Ensuite récupérer les devis de cet utilisateur dans la table Demandes
+    // En utilisant l'ID de l'utilisateur pour la relation
+    const devisRecords = await base('Demandes').select({
+      filterByFormula: `{Utilisateur} = '${userId}'`,
       sort: [{ field: 'Last Modified Time', direction: 'desc' }]
     }).all();
 
-    const devis = records.map(record => {
+    const devis = devisRecords.map(record => {
       // Le champ peut être une URL string ou un array d'attachments
       const devisWord = record.get('Devis Url');
       let devisWordUrl = '';
@@ -41,6 +57,7 @@ export async function GET(req: NextRequest) {
         totalFestivalPrix: record.get('Total Festival Prix') as number || 0,
         totalHebergementPrix: record.get('Total Hebergement Prix') as number || 0,
         totalTransportPrix: record.get('Total Transport Prix') as number || 0,
+        totalPrix: record.get('Prix total') as number || 0,
         activitesIA: record.get('Activites IA') as string || '',
         nbVoyageurs: record.get('Nombre de personnes') as number || 0,
         status: record.get('Status') as string || 'Nouveau',
@@ -48,6 +65,8 @@ export async function GET(req: NextRequest) {
         devisWordUrl,
       };
     });
+
+    console.log(`✅ Récupération de ${devis.length} devis pour l'utilisateur ${email}`);
 
     return NextResponse.json({ devis });
 

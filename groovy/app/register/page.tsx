@@ -52,13 +52,20 @@ export default function RegisterPage() {
         localStorage.setItem('userEmail', email)
         localStorage.setItem('userName', nomComplet)
         
-        // Vérifier s'il y a un devis en attente
-        const pendingDevis = localStorage.getItem('pendingDevis')
-        if (pendingDevis) {
-          localStorage.removeItem('pendingDevis')
-          router.push('/mes-devis?pending=true')
+        // Vérifier s'il y a une URL de retour
+        const returnUrl = localStorage.getItem('returnUrl')
+        if (returnUrl) {
+          localStorage.removeItem('returnUrl')
+          router.push(returnUrl)
         } else {
-          router.push('/mes-devis')
+          // Vérifier s'il y a un devis en attente
+          const pendingDevis = localStorage.getItem('pendingDevis')
+          if (pendingDevis) {
+            localStorage.removeItem('pendingDevis')
+            router.push('/mes-devis?pending=true')
+          } else {
+            router.push('/mes-devis')
+          }
         }
       } else {
         const errorData = await response.json()

@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import Airtable from 'airtable';
 
-// Utilisateurs de test (en production, utilisez une base de données)
-const USERS = [
-  { email: 'test@example.com', password: 'password123', name: 'Utilisateur Test' },
-  { email: 'admin@groovenomad.com', password: 'admin123', name: 'Admin' }
-];
+const base = new Airtable({
+  apiKey: process.env.NEXT_PUBLIC_AIRTABLE_API_KEY
+}).base(process.env.NEXT_PUBLIC_AIRTABLE_BASE_ID || '');
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,10 +17,24 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Recherche de l'utilisateur
-    const user = USERS.find(u => u.email === email && u.password === password);
+    // Recherche de l'utilisateur dans Airtable
+    const records = await base('Utilisateurs').select({
+      filterByFormula: `{Email} = '${email}'`
+    }).all();
 
-    if (!user) {
+    if (records.length === 0) {
+      return NextResponse.json(
+        { message: 'Email ou mot de passe incorrect' },
+        { status: 401 }
+      );
+    }
+
+    const userRecord = records[0];
+    const storedPassword = userRecord.get('Mot de passe') as string;
+    const userName = userRecord.get('Nom complet') as string;
+
+    // Vérification du mot de passe
+    if (storedPassword !== password) {
       return NextResponse.json(
         { message: 'Email ou mot de passe incorrect' },
         { status: 401 }
@@ -29,14 +42,16 @@ export async function POST(req: NextRequest) {
     }
 
     // Génération d'un token simple (en production, utilisez JWT)
-    const token = Buffer.from(`${user.email}:${Date.now()}`).toString('base64');
+    const token = Buffer.from(`${email}:${Date.now()}`).toString('base64');
+
+    console.log('✅ Connexion réussie pour:', email);
 
     return NextResponse.json({
       success: true,
       token,
       user: {
-        email: user.email,
-        name: user.name
+        email: email,
+        name: userName
       }
     });
 

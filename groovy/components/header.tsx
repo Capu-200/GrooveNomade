@@ -27,6 +27,14 @@ export default function Header() {
         }
     }, [])
 
+    // Fonction de déconnexion
+    const handleLogout = () => {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
+        window.location.href = '/';
+    }
+
     return(
         <header className="absolute inset-x-0 top-0 z-50">
             <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
@@ -80,6 +88,12 @@ export default function Header() {
                                     {userName}
                                 </span>
                             </div>
+                            <button
+                                onClick={handleLogout}
+                                className="text-sm/4 ml-4 mr-2 font-semibold text-orange-500 hover:text-orange-600 transition"
+                            >
+                                Se déconnecter
+                            </button>
                         </div>
                     ) : (
                         <a href="/login" className="text-sm/6 font-semibold text-gray-900">
@@ -152,6 +166,12 @@ export default function Header() {
                                         <span>{userName}</span>
                                     </div>
                                 </div>
+                                <button
+                                    onClick={handleLogout}
+                                    className="mt-2 w-full px-3 py-2 rounded bg-gray-200 text-gray-800 text-base font-medium hover:bg-gray-300 transition"
+                                >
+                                    Se déconnecter
+                                </button>
                             </>
                         ) : (
                             <a

@@ -15,6 +15,7 @@ interface Devis {
   totalFestivalPrix: number;
   totalHebergementPrix: number;
   totalTransportPrix: number;
+  totalPrix: number;
   activitesIA: string;
   nbVoyageurs: number;
   status: string;
@@ -90,12 +91,6 @@ export default function MesDevisPage() {
     } finally {
       setLoading(false)
     }
-  }
-
-  const handleLogout = () => {
-    localStorage.removeItem('authToken')
-    localStorage.removeItem('userEmail')
-    router.push('/login')
   }
 
   const formatDate = (dateString: string) => {
@@ -231,12 +226,6 @@ export default function MesDevisPage() {
               👋 Bonjour {userName || userEmail}, voici l'historique de vos demandes de devis
             </p>
           </div>
-          <button
-            onClick={handleLogout}
-            className="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700"
-          >
-            Se déconnecter
-          </button>
         </div>
 
         {error && (
@@ -303,7 +292,7 @@ export default function MesDevisPage() {
                   <div className="bg-gray-50 p-3 rounded">
                     <p className="text-sm text-gray-600">Total estimé</p>
                     <p className="font-semibold text-purple-600">
-                      {devis.totalFestivalPrix + devis.totalHebergementPrix + devis.totalTransportPrix}€
+                      {devis.totalPrix}€
                     </p>
                   </div>
                 </div>

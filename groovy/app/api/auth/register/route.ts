@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import Airtable from 'airtable';
 
-// Utilisateurs de test (en production, utilisez une base de données)
-let USERS = [
-  { email: 'test@example.com', password: 'password123', name: 'Utilisateur Test' },
-  { email: 'admin@groovenomad.com', password: 'admin123', name: 'Admin' }
-];
+const base = new Airtable({
+  apiKey: process.env.NEXT_PUBLIC_AIRTABLE_API_KEY
+}).base(process.env.NEXT_PUBLIC_AIRTABLE_BASE_ID || '');
 
 export async function POST(req: NextRequest) {
   try {
@@ -35,24 +34,28 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Vérifier si l'email existe déjà
-    const existingUser = USERS.find(u => u.email === email);
-    if (existingUser) {
+    // Vérifier si l'email existe déjà dans Airtable
+    const existingRecords = await base('Utilisateurs').select({
+      filterByFormula: `{Email} = '${email}'`
+    }).all();
+
+    if (existingRecords.length > 0) {
       return NextResponse.json(
         { message: 'Un compte avec cet email existe déjà' },
         { status: 409 }
       );
     }
 
-    // Créer le nouvel utilisateur
-    const newUser = {
-      email,
-      password,
-      name: nomComplet
-    };
-
-    // Ajouter à la liste des utilisateurs
-    USERS.push(newUser);
+    // Créer le nouvel utilisateur dans Airtable
+    const newRecord = await base('Utilisateurs').create([
+      {
+        fields: {
+          'Nom complet': nomComplet,
+          'Email': email,
+          'Mot de passe': password
+        }
+      }
+    ]);
 
     // Génération d'un token simple (en production, utilisez JWT)
     const token = Buffer.from(`${email}:${Date.now()}`).toString('base64');
@@ -63,8 +66,8 @@ export async function POST(req: NextRequest) {
       success: true,
       token,
       user: {
-        email: newUser.email,
-        name: newUser.name
+        email: email,
+        name: nomComplet
       }
     });
 

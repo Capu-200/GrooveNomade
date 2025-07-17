@@ -437,7 +437,7 @@ export default function FestivalDetail({ params }: FestivalDetailProps) {
                     initializeDevisForm();
                     setShowDevisModal(true);
                   } else {
-                    // Rediriger vers le login avec les données du devis
+                    // Rediriger vers le login avec les données du devis et l'URL de retour
                     const devisData = {
                       festivalName: festival?.name,
                       festivalId: festival?.id,
@@ -449,6 +449,8 @@ export default function FestivalDetail({ params }: FestivalDetailProps) {
                       totalPrice: calculateTotalPrice()
                     };
                     localStorage.setItem('pendingDevis', JSON.stringify(devisData));
+                    // Sauvegarder l'URL de retour pour revenir sur cette page après connexion
+                    localStorage.setItem('returnUrl', window.location.pathname);
                     router.push('/login');
                   }
                 }}
