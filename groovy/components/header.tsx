@@ -155,12 +155,6 @@ export default function Header() {
                         <div className="py-6">
                         {isLoggedIn ? (
                             <>
-                                <a
-                                    href="/mes-devis"
-                                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                                >
-                                    Mes Devis
-                                </a>
                                 <div className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900">
                                     <div className="flex items-center space-x-2">
                                         <UserCircleIcon className="h-5 w-5 text-purple-600" />

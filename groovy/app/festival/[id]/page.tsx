@@ -546,7 +546,7 @@ export default function FestivalDetail({ params }: FestivalDetailProps) {
       </div>
       <Footer />
       {showDevisModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-gray-900/75 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
             {devisSuccess ? (
               <div className="text-center">
@@ -609,7 +609,7 @@ export default function FestivalDetail({ params }: FestivalDetailProps) {
                     <button
                       type="button"
                       onClick={() => setShowDevisModal(false)}
-                      className="flex-1 bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+                      className="flex-1 bg-gray-300 text-gray-900 px-4 py-2 rounded hover:bg-gray-400"
                     >
                       Annuler
                     </button>

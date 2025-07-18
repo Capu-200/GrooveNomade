@@ -34,8 +34,8 @@ export default function AProposPage() {
             <div className="space-y-4">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                    <span className="text-purple-600 text-sm font-semibold">1</span>
+                  <div className="w-8 h-8 bg-purple-50 rounded-full flex items-center justify-center">
+                    <span className="text-purple-500 text-sm font-semibold">1</span>
                   </div>
                 </div>
                 <div className="ml-4">
@@ -46,8 +46,8 @@ export default function AProposPage() {
               
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                    <span className="text-purple-600 text-sm font-semibold">2</span>
+                  <div className="w-8 h-8 bg-purple-50 rounded-full flex items-center justify-center">
+                    <span className="text-purple-500 text-sm font-semibold">2</span>
                   </div>
                 </div>
                 <div className="ml-4">
@@ -58,8 +58,8 @@ export default function AProposPage() {
               
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                    <span className="text-purple-600 text-sm font-semibold">3</span>
+                  <div className="w-8 h-8 bg-purple-50 rounded-full flex items-center justify-center">
+                    <span className="text-purple-500 text-sm font-semibold">3</span>
                   </div>
                 </div>
                 <div className="ml-4">
@@ -75,15 +75,15 @@ export default function AProposPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Nos Chiffres</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">50+</div>
+              <div className="text-4xl font-bold text-purple-500 mb-2">50+</div>
               <div className="text-gray-600">Festivals partenaires</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">1000+</div>
+              <div className="text-4xl font-bold text-purple-500 mb-2">1000+</div>
               <div className="text-gray-600">Voyageurs satisfaits</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">25</div>
+              <div className="text-4xl font-bold text-purple-500 mb-2">25</div>
               <div className="text-gray-600">Pays couverts</div>
             </div>
           </div>
@@ -96,7 +96,7 @@ export default function AProposPage() {
           </p>
           <a
             href="/festivals"
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-500 hover:bg-purple-600"
           >
             Voir les festivals
           </a>

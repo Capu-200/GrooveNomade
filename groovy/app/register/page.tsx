@@ -130,7 +130,7 @@ export default function RegisterPage() {
                   value={nomComplet}
                   onChange={(e) => setNomComplet(e.target.value)}
                   autoComplete="name"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-500 sm:text-sm/6"
                 />
               </div>
             </div>
@@ -148,7 +148,7 @@ export default function RegisterPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-500 sm:text-sm/6"
                 />
               </div>
             </div>
@@ -166,7 +166,7 @@ export default function RegisterPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="new-password"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-sm/6"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-500 sm:text-sm/6"
                 />
               </div>
             </div>
@@ -202,7 +202,7 @@ export default function RegisterPage() {
 
           <p className="mt-10 text-center text-sm/6 text-gray-500">
             Vous avez déjà un compte ?{' '}
-            <a href="/login" className="font-semibold text-purple-500 hover:text-indigo-600">
+            <a href="/login" className="font-semibold text-purple-500 hover:text-purple-600">
               Connectez-vous !
             </a>
           </p>

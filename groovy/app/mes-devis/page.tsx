@@ -341,14 +341,14 @@ export default function MesDevisPage() {
                       <button
                         onClick={() => handleAcceptDevis(devis.id)}
                         disabled={actionLoading === devis.id}
-                        className="flex-1 bg-emeraude-400 text-white px-4 py-2 rounded-md hover:bg-emeraude-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex-1 bg-emeraude-400 text-white px-4 py-2 rounded-md hover:bg-emeraude-500 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {actionLoading === devis.id ? 'Traitement...' : '✅ Accepter le devis'}
                       </button>
                       <button
                         onClick={() => handleRefuseDevis(devis.id)}
                         disabled={actionLoading === devis.id}
-                        className="flex-1 bg-neutral-400 text-white px-4 py-2 rounded-md hover:bg-stone-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex-1 bg-red-400 text-red-900 px-4 py-2 rounded-md hover:bg-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {actionLoading === devis.id ? 'Traitement...' : '❌ Refuser le devis'}
                       </button>
@@ -381,7 +381,7 @@ export default function MesDevisPage() {
       
       {/* Modal de refus */}
       {showRefuseModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-gray-900/75 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold mb-4">Refuser le devis</h3>
             
@@ -426,7 +426,7 @@ export default function MesDevisPage() {
                   setSelectedMotif('')
                   setCommentaires('')
                 }}
-                className="flex-1 bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+                className="flex-1 bg-gray-300 text-gray-900 px-4 py-2 rounded hover:bg-gray-400"
               >
                 Annuler
               </button>
@@ -434,7 +434,7 @@ export default function MesDevisPage() {
                 type="button"
                 onClick={handleSubmitRefuse}
                 disabled={refuseLoading || !selectedMotif}
-                className="flex-1 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-700 disabled:opacity-65 disabled:cursor-not-allowed"
+                className="flex-1 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 disabled:opacity-65 disabled:cursor-not-allowed"
               >
                 {refuseLoading ? 'Traitement...' : 'Confirmer le refus'}
               </button>
