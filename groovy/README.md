@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎵 GrooveNomad - Assistant Voyage Festivals
 
-## Getting Started
+**GrooveNomad** est une plateforme innovante qui révolutionne l'organisation de voyages pour les festivals de musique. Notre assistant IA intelligent vous guide dans la création d'expériences festival inoubliables.
 
-First, run the development server:
+## ✨ Fonctionnalités Principales
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🤖 Assistant IA Intelligent
+- **Chatbot personnalisé** : Décrivez vos envies et recevez des suggestions de festivals adaptées
+- **Recommandations intelligentes** : Basées sur vos préférences musicales, budget et destination
+- **Conversation persistante** : Votre chat est sauvegardé automatiquement
+- **Liens directs** : Accès immédiat aux pages des festivals recommandés
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🎪 Catalogue de Festivals
+- **Festivals internationaux** : Large sélection de festivals en Europe et dans le monde
+- **Informations détaillées** : Dates, prix, styles de musique, localisation
+- **Filtres avancés** : Par pays, style musical, budget, période
+- **Tri intelligent** : Par date, prix, durée
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 💰 Devis Personnalisés
+- **Calcul automatique** : Prix festival + hébergement + transport
+- **Options flexibles** : Nombre de voyageurs, durée de séjour
+- **Gestion des devis** : Acceptation, refus avec motifs, suivi
+- **Export Word** : Devis détaillés téléchargeables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🏨 Hébergement & Transport
+- **Hébergements variés** : Hôtels, camping, appartements
+- **Transports optimisés** : Train, bus, avion avec prix
+- **Suggestions d'activités** : IA génère des activités autour du festival
 
-## Learn More
+### 👤 Espace Personnel
+- **Inscription/Connexion** : Système d'authentification sécurisé
+- **Mes Devis** : Historique et gestion de vos demandes
+- **Profil utilisateur** : Informations personnelles sauvegardées
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Technologies Utilisées
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Frontend** : Next.js 15, React 19, TypeScript
+- **Styling** : Tailwind CSS 4
+- **IA** : OpenAI GPT-4o, AI SDK
+- **Base de données** : Airtable
+- **Déploiement** : Vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎯 Pages Principales
 
-## Deploy on Vercel
+- **🏠 Accueil** : Présentation et navigation
+- **🎪 Festivals** : Catalogue avec filtres et tri
+- **🤖 Assistant IA** : Chatbot intelligent
+- **💰 Mes Devis** : Gestion des demandes
+- **👤 Connexion/Inscription** : Authentification
+- **ℹ️ À propos** : Informations sur GrooveNomad
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎵 L'Expérience GrooveNomad
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Découvrez** des festivals via notre catalogue ou l'assistant IA
+2. **Personnalisez** votre voyage (dates, voyageurs, budget)
+3. **Recevez** un devis détaillé automatiquement calculé
+4. **Gérez** vos demandes dans votre espace personnel
+5. **Partez** en toute sérénité vers votre festival de rêve !
+
+---
+
+*GrooveNomad - Votre compagnon de voyage pour des expériences festival inoubliables* 🎵✈️

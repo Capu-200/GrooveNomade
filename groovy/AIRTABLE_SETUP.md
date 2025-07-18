@@ -1,102 +1,167 @@
-# Configuration Airtable pour GrooveNomad
+# 🗄️ Structure des Données Airtable - GrooveNomad
 
-## Étapes de configuration
+Ce document décrit la structure complète de la base de données Airtable utilisée par GrooveNomad pour gérer les festivals, hébergements, transports et utilisateurs.
 
-### 1. Créer une base Airtable
+## 📊 Vue d'ensemble
 
-1. Allez sur [Airtable.com](https://airtable.com)
-2. Créez une nouvelle base de données
-3. Créez une table nommée "Festivals" avec les colonnes suivantes :
-   - **FestivalID** (Single line text) - Identifiant unique du festival
-   - **Nom** (Single line text) - Nom du festival
-   - **Ville** (Single line text) - Ville du festival
-   - **Pays** (Single line text) - Pays du festival
-   - **Date_debut** (Date) - Date de début du festival
-   - **Date_fin** (Date) - Date de fin du festival (optionnel)
-   - **Image** (URL) - URL de l'image du festival
-   - **Price_1_day** (Currency) - Prix pour 1 jour
-   - **Price_2_days** (Currency) - Prix pour 2 jours
-   - **Price_3_days** (Currency) - Prix pour 3 jours
-   - **Nb_jours** (Number) - Nombre de jours du festival
-   - **Genre** (Single select) - Genre musical (ex: "Rock", "Jazz", "Électro")
+GrooveNomad utilise **4 tables principales** dans Airtable :
+- **Festivals** : Catalogue des festivals de musique
+- **Hébergements** : Options d'hébergement par festival
+- **Transports** : Solutions de transport vers les festivals
+- **Utilisateurs** : Comptes utilisateurs et authentification
+- **Demandes** : Devis et demandes des utilisateurs
 
-### 2. Obtenir vos clés API
+## 🎪 Table : Festivals
 
-1. Allez dans votre compte Airtable
-2. Cliquez sur votre avatar en haut à droite
-3. Sélectionnez "Account"
-4. Allez dans l'onglet "API"
-5. Cliquez sur "Generate API key"
-6. Copiez votre clé API
+### Colonnes requises :
+| Colonne | Type | Description | Exemple |
+|---------|------|-------------|---------|
+| `FestivalID` | Single line text | Identifiant unique | `FES001` |
+| `Nom` | Single line text | Nom du festival | `Rock en Seine` |
+| `Ville` | Single line text | Ville du festival | `Saint-Cloud` |
+| `Pays` | Single line text | Pays du festival | `France` |
+| `Date_debut` | Date | Date de début | `2024-08-25` |
+| `Date_fin` | Date | Date de fin (optionnel) | `2024-08-27` |
+| `Image` | URL | Image du festival | `https://...` |
+| `Prix_1_jour` | Currency | Prix 1 jour | `45€` |
+| `Prix_2_jours` | Currency | Prix 2 jours | `80€` |
+| `Prix_3_jours` | Currency | Prix 3 jours | `110€` |
+| `Nb_jours` | Number | Nombre de jours | `3` |
+| `Genre` | Single select | Style musical | `Rock` |
 
-### 3. Obtenir votre Base ID
+### Exemple de données :
+```
+FestivalID: FES001
+Nom: Rock en Seine
+Ville: Saint-Cloud
+Pays: France
+Date_debut: 2024-08-25
+Date_fin: 2024-08-27
+Prix_1_jour: 45€
+Prix_2_jours: 80€
+Prix_3_jours: 110€
+Nb_jours: 3
+Genre: Rock
+```
 
-1. Dans votre base Airtable, cliquez sur "Help" en haut à droite
-2. Sélectionnez "API Documentation"
-3. Notez votre "Base ID" (ex: `appXXXXXXXXXXXXXX`)
+## 🏨 Table : Hébergements
 
-### 4. Configurer les variables d'environnement
+### Colonnes requises :
+| Colonne | Type | Description | Exemple |
+|---------|------|-------------|---------|
+| `HebergementID` | Single line text | Identifiant unique | `HEB001` |
+| `Nom` | Single line text | Nom de l'hébergement | `Hôtel Central` |
+| `Prix par nuit` | Currency | Prix par nuit | `120€` |
+| `Type` | Single select | Type d'hébergement | `Hôtel` |
+| `Festival` | Link to Festivals | Festival associé | `FES001` |
 
-Créez un fichier `.env.local` à la racine du projet avec :
+### Types d'hébergement disponibles :
+- Hôtel
+- Camping
+- Appartement
+- Auberge de jeunesse
+- Résidence
 
+## 🚗 Table : Transports
+
+### Colonnes requises :
+| Colonne | Type | Description | Exemple |
+|---------|------|-------------|---------|
+| `TransportID` | Single line text | Identifiant unique | `TRP001` |
+| `Ville_depart` | Single line text | Ville de départ | `Paris` |
+| `Ville_arrivee` | Single line text | Ville d'arrivée | `Saint-Cloud` |
+| `Prix_A/R` | Currency | Prix aller-retour | `25€` |
+| `Duree_estimee` | Number | Durée en heures | `1.5` |
+| `Mode` | Single select | Mode de transport | `Train` |
+| `Compagnie` | Single line text | Compagnie | `SNCF` |
+| `Festival` | Link to Festivals | Festival associé | `FES001` |
+
+### Modes de transport disponibles :
+- Train
+- Bus
+- Avion
+- Voiture
+- Métro
+
+## 👤 Table : Utilisateurs
+
+### Colonnes requises :
+| Colonne | Type | Description | Exemple |
+|---------|------|-------------|---------|
+| `UserID` | Single line text | Identifiant unique | `USR001` |
+| `Email` | Email | Email utilisateur | `user@example.com` |
+| `Nom` | Single line text | Nom complet | `Jean Dupont` |
+| `Mot_de_passe` | Single line text | Mot de passe hashé | `hash...` |
+| `Date_creation` | Date | Date d'inscription | `2024-01-15` |
+
+## 💰 Table : Demandes
+
+### Colonnes requises :
+| Colonne | Type | Description | Exemple |
+|---------|------|-------------|---------|
+| `DemandeID` | Single line text | Identifiant unique | `DEM001` |
+| `Utilisateur` | Link to Utilisateurs | Utilisateur | `USR001` |
+| `Festival` | Link to Festivals | Festival | `FES001` |
+| `Hébergement` | Link to Hébergements | Hébergement | `HEB001` |
+| `Transport` | Link to Transports | Transport | `TRP001` |
+| `Nb_voyageurs` | Number | Nombre de voyageurs | `2` |
+| `Durée_séjour` | Number | Durée en jours | `3` |
+| `Prix_total` | Currency | Prix total calculé | `450€` |
+| `Statut` | Single select | Statut du devis | `En cours` |
+| `Date_creation` | Date | Date de création | `2024-01-15` |
+| `Motif_refus` | Long text | Motif si refusé | `Budget trop élevé` |
+| `Commentaires` | Long text | Commentaires | `...` |
+| `Fichier_Word` | Attachment | Devis Word | `devis.pdf` |
+
+### Statuts disponibles :
+- En cours
+- Accepté
+- Refusé
+
+## 🔗 Relations entre tables
+
+```
+Festivals (1) ←→ (N) Hébergements
+Festivals (1) ←→ (N) Transports
+Utilisateurs (1) ←→ (N) Demandes
+Festivals (1) ←→ (N) Demandes
+Hébergements (1) ←→ (N) Demandes
+Transports (1) ←→ (N) Demandes
+```
+
+## ⚙️ Configuration
+
+### 1. Variables d'environnement
+Créez un fichier `.env.local` :
 ```env
-NEXT_PUBLIC_AIRTABLE_API_KEY=votre_clé_api_ici
-NEXT_PUBLIC_AIRTABLE_BASE_ID=votre_base_id_ici
+NEXT_PUBLIC_AIRTABLE_API_KEY=votre_clé_api
+NEXT_PUBLIC_AIRTABLE_BASE_ID=votre_base_id
 ```
 
-### 5. Ajouter des données de test
+### 2. Permissions Airtable
+- **Lecture** : Toutes les tables
+- **Écriture** : Utilisateurs, Demandes
+- **API** : Activée pour toutes les tables
 
-Ajoutez quelques festivals dans votre table Airtable pour tester :
+### 3. Vues recommandées
+- **Festivals** : "Grid view" (vue par défaut)
+- **Hébergements** : "Grid view" 
+- **Transports** : "Grid view"
+- **Utilisateurs** : "Grid view"
+- **Demandes** : "Grid view" + "Par statut"
 
-| FestivalID | Nom | Ville | Pays | Date_debut | Date_fin | Image | Price_1_day | Price_2_days | Price_3_days | Nb_jours | Genre |
-|------------|-----|-------|------|------------|----------|-------|-------------|--------------|--------------|----------|-------|
-| FEST001 | Festival de Jazz | Paris | France | 2024-07-15 | 2024-07-17 | https://example.com/image.jpg | 25€ | 45€ | 60€ | 3 | Jazz |
-| FEST002 | Rock en Seine | Saint-Cloud | France | 2024-08-25 | 2024-08-27 | https://example.com/image2.jpg | 45€ | 80€ | 110€ | 3 | Rock |
+## 🚀 Déploiement
 
-### 6. Redémarrer le serveur
+### Variables Vercel
+Ajoutez ces variables dans votre projet Vercel :
+- `NEXT_PUBLIC_AIRTABLE_API_KEY`
+- `NEXT_PUBLIC_AIRTABLE_BASE_ID`
 
-```bash
-npm run dev
-```
+### Sécurité
+- Les clés API sont exposées côté client (NEXT_PUBLIC_)
+- Utilisez des restrictions IP si nécessaire
+- Surveillez l'utilisation de l'API Airtable
 
-Votre page festivals devrait maintenant afficher les données dynamiques d'Airtable !
+---
 
-## Structure de la base Airtable
-
-Votre table "Festivals" doit avoir exactement ces noms de colonnes :
-- `FestivalID` - Identifiant unique du festival
-- `Nom` - Nom du festival
-- `Ville` - Ville du festival (optionnel)
-- `Pays` - Pays du festival (optionnel)
-- `Date_debut` - Date de début du festival (format YYYY-MM-DD)
-- `Date_fin` - Date de fin du festival (optionnel, format YYYY-MM-DD)
-- `Image` - URL de l'image (optionnel)
-- `Price_1_day` - Prix pour 1 jour (devise)
-- `Price_2_days` - Prix pour 2 jours (devise)
-- `Price_3_days` - Prix pour 3 jours (devise)
-- `Nb_jours` - Nombre de jours (nombre)
-- `Genre` - Genre musical (sélection unique)
-
-## Types de données Airtable
-
-- **FestivalID** : Single line text
-- **Nom** : Single line text
-- **Ville** : Single line text
-- **Pays** : Single line text
-- **Date_debut** : Date
-- **Date_fin** : Date
-- **Image** : URL
-- **Price_1_day** : Currency
-- **Price_2_days** : Currency
-- **Price_3_days** : Currency
-- **Nb_jours** : Number
-- **Genre** : Single select
-
-## Dépannage
-
-- **Erreur "API key invalid"** : Vérifiez votre clé API dans `.env.local`
-- **Erreur "Base not found"** : Vérifiez votre Base ID
-- **Aucun festival affiché** : Vérifiez que votre table s'appelle exactement "Festivals"
-- **Images ne s'affichent pas** : Vérifiez que les URLs d'images sont valides et accessibles publiquement
-- **Prix ne s'affichent pas** : Vérifiez que les champs de prix sont bien de type "Currency" dans Airtable
-- **Dates ne s'affichent pas** : Vérifiez que les champs de date sont bien de type "Date" dans Airtable 
+*Cette structure permet à GrooveNomad de gérer l'ensemble du parcours utilisateur, de la découverte de festivals à la gestion des devis.* 🎵 
