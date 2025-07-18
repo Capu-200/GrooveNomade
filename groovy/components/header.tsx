@@ -42,8 +42,8 @@ export default function Header() {
               <div className="flex lg:flex-1">
                 <a href="/" className="-m-1.5 p-1.5 flex items-center space-x-2">
                   <img src="/logo.svg" alt="GrooveNomad" className="w-10 h-10" />
-                  <span className="text-xl font-bold text-gray-900">GrooveNomad</span>
-                </a>
+{/*                   <span className="text-xl font-bold text-gray-900">GrooveNomad</span>
+ */}                </a>
               </div>
               <div className="flex lg:hidden">
                 <button
