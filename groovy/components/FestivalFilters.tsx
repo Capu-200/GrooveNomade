@@ -83,8 +83,8 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
   );
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
         <h3 className="text-lg font-semibold text-gray-900 flex items-center">
           <FunnelIcon className="h-5 w-5 mr-2" />
           Filtres
@@ -92,15 +92,15 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
         {hasActiveFilters && (
           <button
             onClick={clearFilters}
-            className="flex items-center space-x-1 px-3 py-1 text-sm text-red-600 hover:text-red-800 transition-colors"
+            className="flex items-center space-x-1 px-2 sm:px-3 py-1 text-sm text-red-600 hover:text-red-800 transition-colors"
           >
             <XMarkIcon className="h-4 w-4" />
-            <span>Effacer</span>
+            <span className="hidden sm:inline">Effacer</span>
           </button>
         )}
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         
         {/* Genre */}
         <div>
@@ -124,7 +124,7 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Pays
           </label>
-          <div className="space-y-2">
+          <div className="space-y-2 max-h-32 overflow-y-auto">
             <label className="flex items-center">
               <input
                 type="radio"
@@ -160,7 +160,7 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => applyFilters({ ...filters, nbDays: '' })}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`px-2 sm:px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 filters.nbDays === '' 
                   ? 'bg-purple-500 text-white' 
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -170,7 +170,7 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
             </button>
             <button
               onClick={() => applyFilters({ ...filters, nbDays: '1' })}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`px-2 sm:px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 filters.nbDays === '1' 
                   ? 'bg-purple-500 text-white' 
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -180,7 +180,7 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
             </button>
             <button
               onClick={() => applyFilters({ ...filters, nbDays: '2' })}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`px-2 sm:px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 filters.nbDays === '2' 
                   ? 'bg-purple-500 text-white' 
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -190,7 +190,7 @@ export default function FestivalFilters({ festivals, onFiltersChange }: Festival
             </button>
             <button
               onClick={() => applyFilters({ ...filters, nbDays: '3' })}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`px-2 sm:px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 filters.nbDays === '3' 
                   ? 'bg-purple-500 text-white' 
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'

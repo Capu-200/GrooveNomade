@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon, SparklesIcon, ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon, GlobeEuropeAfricaIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon, SparklesIcon, ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon, GlobeEuropeAfricaIcon, FunnelIcon } from '@heroicons/react/24/outline'
 
 import {Footer} from "@/components/footer"
 import Header from "@/components/header"
@@ -16,6 +16,7 @@ import { getFestivals, Festival } from "@/lib/airtable"
 
 export default function FestivalsPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showFilters, setShowFilters] = useState(false)
   const [festivals, setFestivals] = useState<Festival[]>([])
   const [filteredFestivals, setFilteredFestivals] = useState<Festival[]>([])
   const [loading, setLoading] = useState(true)
@@ -95,9 +96,9 @@ export default function FestivalsPage() {
     <div className="bg-white min-h-screen">
       <Header/>
 
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+      <div className="mx-auto max-w-7xl px-4 mt-25 pb-8 sm:px-6 sm:pt-24 sm:pb-16 lg:px-8">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 sm:mb-8 gap-4">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">
             Les prochains festivals
           </h2>
           {loading && (
@@ -125,9 +126,20 @@ export default function FestivalsPage() {
         )}
 
         {!loading && festivals.length > 0 && (
-          <div className="flex gap-8">
-            {/* Filtres sur le côté */}
-            <div className="w-80 flex-shrink-0">
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+            {/* Bouton filtres mobile */}
+            <div className="lg:hidden">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center space-x-2 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+              >
+                <FunnelIcon className="h-5 w-5" />
+                <span>Filtres</span>
+              </button>
+            </div>
+
+            {/* Filtres - Mobile (toggle) / Desktop (sidebar) */}
+            <div className={`lg:w-80 lg:flex-shrink-0 ${showFilters ? 'block' : 'hidden lg:block'}`}>
               <FestivalFilters 
                 festivals={festivals} 
                 onFiltersChange={handleFiltersChange}
@@ -136,7 +148,7 @@ export default function FestivalsPage() {
 
             {/* Contenu principal */}
             <div className="flex-1">
-              <div className="flex justify-between items-center mb-6">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
                 <p className="text-sm text-gray-600">
                   {filteredFestivals.length} festival{filteredFestivals.length > 1 ? 's' : ''} trouvé{filteredFestivals.length > 1 ? 's' : ''}
                 </p>
@@ -154,7 +166,7 @@ export default function FestivalsPage() {
               )}
 
               {filteredFestivals.length > 0 && (
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
                   {filteredFestivals.map((festival) => (
                     <FestivalCard key={festival.id} festival={festival} />
                   ))}
