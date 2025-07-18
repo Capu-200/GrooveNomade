@@ -64,7 +64,7 @@ export default function RegisterPage() {
             localStorage.removeItem('pendingDevis')
             router.push('/mes-devis?pending=true')
           } else {
-            router.push('/mes-devis')
+            router.push('/chatbot')
           }
         }
       } else {

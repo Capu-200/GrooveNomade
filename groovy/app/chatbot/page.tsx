@@ -5,29 +5,48 @@ import { useRouter } from 'next/navigation'
 import { useChat } from 'ai/react'
 import Header from '@/components/header'
 import { Footer } from '@/components/footer'
-import { PaperAirplaneIcon, UserIcon } from '@heroicons/react/24/outline'
+import { PaperAirplaneIcon, UserIcon, TrashIcon } from '@heroicons/react/24/outline'
 
 export default function ChatbotPage() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    api: '/api/chatbot',
-    initialMessages: [
+  // Récupérer la conversation sauvegardée ou utiliser le message initial
+  const getInitialMessages = () => {
+    if (typeof window !== 'undefined') {
+      const savedMessages = localStorage.getItem('chatbot-conversation')
+      if (savedMessages) {
+        try {
+          return JSON.parse(savedMessages)
+        } catch (e) {
+          console.error('Erreur lors du parsing des messages sauvegardés:', e)
+        }
+      }
+    }
+    
+    return [
       {
         id: '1',
         role: 'assistant',
         content: "Bonjour ! Je suis votre assistant voyage GrooveNomad. 🎵 Dites-moi ce que vous recherchez : style de musique, budget, destination, période... Je peux vous proposer les meilleurs festivals et vous aider à organiser votre voyage !"
       }
     ]
-  })
-
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    api: '/api/chatbot',
+    initialMessages: getInitialMessages()
+  })
+
+  // Sauvegarder la conversation dans le localStorage à chaque changement
   useEffect(() => {
-    scrollToBottom()
+    if (messages.length > 0) {
+      localStorage.setItem('chatbot-conversation', JSON.stringify(messages))
+    }
   }, [messages])
+
+  // Fonction pour effacer la conversation
+  const clearConversation = () => {
+    localStorage.removeItem('chatbot-conversation')
+    window.location.reload()
+  }
 
   const renderMessageContent = (text: string) => {
     const lines = text.split('\n')
@@ -148,6 +167,15 @@ export default function ChatbotPage() {
           <p className="text-gray-600 mt-2">
             Parlez-moi de vos envies de festival et je vous proposerai le voyage parfait ! 🎵
           </p>
+          {messages.length > 1 && (
+            <button
+              onClick={clearConversation}
+              className="mt-4 inline-flex items-center px-3 py-2 text-sm text-gray-600 hover:text-red-600 transition-colors"
+            >
+              <TrashIcon className="w-4 h-4 mr-2" />
+              Effacer la conversation
+            </button>
+          )}
         </div>
 
         {/* Zone de chat style LLM */}
@@ -214,7 +242,7 @@ export default function ChatbotPage() {
               </div>
             )}
             
-            <div ref={messagesEndRef} />
+            <div />
           </div>
 
           {/* Zone de saisie */}
