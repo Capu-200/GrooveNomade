@@ -327,9 +327,9 @@ export default function MesDevisPage() {
                       href={devis.devisWordUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 font-medium text-sm transition"
+                      className="inline-flex items-center px-4 py-2 bg-red-100 text-red-800 rounded hover:bg-red-200 font-medium text-sm transition"
                     >
-                      📄 Télécharger le devis Word
+                      📄 Télécharger le devis PDF
                     </a>
                   </div>
                 )}
