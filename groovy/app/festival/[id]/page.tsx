@@ -36,7 +36,7 @@ function classNames(...classes: any) {
 }
 
 export default function FestivalDetail({ params }: FestivalDetailProps) {
-  const id = params.id;
+  const { id } = params;
   const router = useRouter();
   const [festival, setFestival] = useState<(Festival & { airtableId: string }) | null>(null);
   const [hebergements, setHebergements] = useState<Hebergement[]>([]);
@@ -499,7 +499,7 @@ export default function FestivalDetail({ params }: FestivalDetailProps) {
                 <div className="mt-3 p-4 bg-purple-50 border border-purple-200 rounded-lg text-sm text-gray-900 flex items-start gap-3 shadow-sm">
                   <span className="text-2xl mt-1">💡</span>
                   <div className="flex-1" dangerouslySetInnerHTML={{ __html: activitySuggestions.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br />') }} />
-                </div>
+                    </div>
               )}
                     </div>
 
