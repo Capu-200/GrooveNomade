@@ -253,7 +253,7 @@ export default function ChatbotPage() {
                 value={input}
                 onChange={handleInputChange}
                 placeholder="Décrivez vos envies de festival..."
-                className="flex-1 border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm"
+                className="flex-1 border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm text-gray-900"
                 disabled={isLoading}
               />
               <button
