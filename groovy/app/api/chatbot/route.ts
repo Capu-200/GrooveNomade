@@ -87,7 +87,9 @@ INSTRUCTIONS :
 11. Réponds en français de manière conversationnelle, sans utiliser de markdown
 12. Si aucune donnée ne correspond, propose des alternatives autour de sa demande ou demande plus de précisions
 13. N'affiche pas les IDs des festivals, seulement les noms
-14. Pour les liens, utilise les URLs fournies pour créer des liens cliquables`;
+14. Pour les liens, utilise les URLs fournies pour créer des liens cliquables
+15. N'utilise jamais de crochets [] ni de parenthèses () pour les liens, affiche simplement le texte du lien sans formatage`;
+
 
     const result = streamText({
       model: openai("gpt-4o"),
