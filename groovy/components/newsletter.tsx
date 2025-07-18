@@ -19,7 +19,7 @@ export default function Newsletter() {
                 name="email"
                 type="email"
                 required
-                placeholder="Enter your email"
+                placeholder="Entrez votre email"
                 autoComplete="email"
                 className="min-w-0 flex-auto rounded-md bg-gray-100 px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-500 sm:text-sm/6"
               />
