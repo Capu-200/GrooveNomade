@@ -92,8 +92,8 @@ export default function Header() {
                         <a href="/" className="-m-1.5 p-1.5 flex items-center space-x-2">
                             <span className="sr-only">GrooveNomad</span>
                             <img src="/logo.svg" alt="GrooveNomad" className="w-6 h-6" />
-                            <span className="text-lg font-bold text-gray-900">GrooveNomad</span>
-                        </a>
+{/*                             <span className="text-lg font-bold text-gray-900">GrooveNomad</span>
+ */}                        </a>
                         <button
                             type="button"
                             onClick={() => setMobileMenuOpen(false)}
