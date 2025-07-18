@@ -496,9 +496,10 @@ export default function FestivalDetail({ params }: FestivalDetailProps) {
               </div>
               {activityLoading && <div className="text-sm text-gray-500 mt-2">Recherche en cours...</div>}
               {activitySuggestions && (
-                <div className="mt-3 p-3 bg-gray-50 rounded text-sm text-gray-800">
-                  {activitySuggestions}
-                    </div>
+                <div className="mt-3 p-4 bg-purple-50 border border-purple-200 rounded-lg text-sm text-gray-900 flex items-start gap-3 shadow-sm">
+                  <span className="text-2xl mt-1">💡</span>
+                  <div className="flex-1" dangerouslySetInnerHTML={{ __html: activitySuggestions.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br />') }} />
+                </div>
               )}
                     </div>
 

@@ -56,7 +56,7 @@ export default function ChatbotPage() {
         
         elements.push(
           <div key={i} className="mb-3">
-            <div className="text-sm text-gray-700 mb-2">{cleanLine}</div>
+            <div className="text-sm text-gray-700 mb-2" dangerouslySetInnerHTML={{ __html: cleanLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
             <a
               href={`/festival/${festivalId}`}
               className="inline-flex items-center px-4 py-2 bg-purple-500 text-white text-sm rounded-lg hover:bg-purple-600 transition-colors"
@@ -86,7 +86,7 @@ export default function ChatbotPage() {
           const cleanLine = line.replace(/(?:la page du festival|voir le festival|découvrir ce festival)/i, '')
           elements.push(
             <div key={i} className="mb-3">
-              <span className="text-sm text-gray-700">{cleanLine}</span>
+              <span className="text-sm text-gray-700" dangerouslySetInnerHTML={{ __html: cleanLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
               <a
                 href={`/festival/${festivalId}`}
                 className="inline-flex items-center px-4 py-2 bg-purple-500 text-white text-sm rounded-lg hover:bg-purple-600 transition-colors ml-2"
@@ -105,7 +105,7 @@ export default function ChatbotPage() {
         elements.push(
           <div key={i} className="flex items-start mb-2">
             <span className="text-purple-500 mr-2">•</span>
-            <span className="text-sm text-gray-700">{content}</span>
+            <span className="text-sm text-gray-700" dangerouslySetInnerHTML={{ __html: content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
           </div>
         )
         continue
@@ -115,7 +115,7 @@ export default function ChatbotPage() {
       if (line.includes('📍') || line.includes('📅') || line.includes('🎵') || line.includes('💰') || line.includes('🌐')) {
         elements.push(
           <div key={i} className="flex items-center mb-2 text-sm text-gray-700">
-            <span className="mr-2">{line}</span>
+            <span className="mr-2" dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
           </div>
         )
         continue
@@ -151,7 +151,7 @@ export default function ChatbotPage() {
         </div>
 
         {/* Zone de chat style LLM */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-[700px] mt-15 mb-20 flex flex-col">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-[600px] mt-10 mb-10 flex flex-col">
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6">
             {messages.map((message) => (
