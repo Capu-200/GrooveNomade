@@ -40,7 +40,8 @@ export default function Header() {
         <header className="absolute inset-x-0 top-0 z-50">
             <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
               <div className="flex lg:flex-1">
-                <a href="/" className="-m-1.5 p-1.5">
+                <a href="/" className="-m-1.5 p-1.5 flex items-center space-x-2">
+                  {/* TODO: Remplacer ce SVG par ton propre logo */}
                   <svg width="40" height="40" viewBox="0 0 113 124" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M2.83559 92.2684C-1.49188 84.8824 0.987592 75.3867 8.37364 71.0592L88.9742 23.8355C96.3603 19.508 105.856 21.9875 110.183 29.3736C114.511 36.7596 112.031 46.2553 104.645 50.5828L24.0448 97.8065C16.6587 102.134 7.16306 99.6544 2.83559 92.2684Z" fill="url(#paint0_linear_7_43)" fillOpacity="0.4"/>
                       <path d="M2.72822 29.5576C7.03037 22.1568 16.5175 19.6448 23.9183 23.947L104.68 70.8943C112.081 75.1965 114.593 84.6836 110.291 92.0844C105.989 99.4853 96.5015 101.997 89.1007 97.6951L8.33886 50.7477C0.938036 46.4456 -1.57393 36.9584 2.72822 29.5576Z" fill="url(#paint1_linear_7_43)" fillOpacity="0.4"/>
@@ -61,6 +62,7 @@ export default function Header() {
                       </linearGradient>
                       </defs>
                     </svg>
+                    <span className="text-xl font-bold text-gray-900">GrooveNomad</span>
                 </a>
               </div>
               <div className="flex lg:hidden">
